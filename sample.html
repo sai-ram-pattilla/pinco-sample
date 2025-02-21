@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pinco</title>
+    <link rel="stylesheet" href="sample.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"/>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <div class="background" id="background-container">
+        <div class="header">
+            <img class="logo" id="LOGO" src="https://res.cloudinary.com/novicetopro/image/upload/v1679235120/androidArtboard_2-removebg-preview_1_1.png"/>
+            <div class="nav-container">
+                <ul class="nav">
+                    <li class="nav-item"  id = "home">Home</li>
+                    <li class="nav-item" id = "cources">Cources</li>
+                    <li class="nav-item"  id="about" >About</li>
+                    <li class="nav-item" id = "contact">Contact</li>
+                </ul>
+            </div>
+            <button class="button-nav" id="signIn/signUp-button">Sign Up/Sign In</button>
+        </div>
+        <!-- Mobile View-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-transparent d-lg-none shadow-sm">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="https://res.cloudinary.com/novicetopro/image/upload/v1679235120/androidArtboard_2-removebg-preview_1_1.png" alt="Pinco" height="35">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mobileNav"
+                    aria-controls="mobileNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mobileNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" id="home-mob" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="cources-mob" href="#">Courses</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="about-mob" href="#">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="contact-mob" href="#">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="signUp-mob" href="#">Sign Up/Sign In</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Home page -->
+        <div class="body" id="body-container">
+            <h1 class="description">Welcome To Pinco</h1>
+            <p class="content">
+                With Pinco, enhance your interview skills by attending a huge amount of interview
+                questions that are not only relevant & specific but also twisted. The most relevant
+                interview questions prepare you to conquer the anxiety, and the screwed interview questions
+                prepare you to think independently & logically.
+            </p>
+            <a href="https://play.google.com/store/apps/details?id=com.pinco.learn&pli=1" target="_blank" class="button-app" id="app-button">Get App <i class="bi bi-google-play play-store-icon"></i></a>
+
+            <h2 class="what-we-offer">What We Offer?</h2>
+
+            <div class="offer">
+                <h3 class="offer-type">Practice Mock Interviews</h3>
+                <p class="offer-explanation">
+                    Nail your next interview with Pinco’s personalized mock interview sessions. Whether it’s technical, HR, or situational interviews,
+                    we’ll help you refine your skills and ace the big day with confidence.
+                </p>
+            </div>
+
+            <div class="offer">
+                <h3 class="offer-type">Interview Questions</h3>
+                <p class="offer-explanation">
+                    Get access to a vast library of interview questions that are not only relevant but also twisted.
+                    Practice with the most relevant questions to conquer the anxiety and the screwed questions to think independently & logically.
+                </p>
+            </div>
+
+            <div class="offer">
+                <h3 class="offer-type">Career Guidance Webinars</h3>
+                <p class="offer-explanation">
+                    Learn from industry leaders and career experts in our insightful webinars. Gain actionable tips, explore career trends,
+                    and chart your path to success with expert advice.
+                </p>
+            </div>
+            <!-- User Reviews Section -->
+            <h2 class="reviews-heading">Hear From Our Users</h2>
+            <div class="reviews-section">
+               <div id="reviewsCarousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="review-card">
+                                <img src="https://res.cloudinary.com/damj7tgfm/image/upload/v1739943807/h2acyrdvqizfmrhcupaz.jpg" class="review-img" alt="User 1">
+                                <h4>John Doe</h4>
+                                <p>"Pinco helped me land my dream job with its amazing interview preparation tools!"</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="review-card">
+                                <img src="https://res.cloudinary.com/damj7tgfm/image/upload/v1739943922/images_yrkyoh.png" class="review-img" alt="User 1">
+                                <h4>Shruthi</h4>
+                                <p>"Pinco helped me land my dream job with its amazing interview preparation tools!"</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="review-card">
+                                <img src="https://res.cloudinary.com/damj7tgfm/image/upload/v1739943807/h2acyrdvqizfmrhcupaz.jpg" class="review-img" alt="User 1">
+                                <h4>Ravi</h4>
+                                <p>"Pinco helped me land my dream job with its amazing interview preparation tools!"</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#reviewsCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#reviewsCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    </button>
+              </div>
+            </div>
+
+        </div>
+
+        <!-- About page -->
+        <div class="about" id = "about-content">
+            <div class="about-container">
+                <h>What we do</h>
+                <p class="about-para">
+                    We at Pinco, provide human touch & evaluate the performances
+                    manually and generate <br> report on Question Wise Performance & Overall Performance.
+                </p>
+            </div>
+            <div class="about-container">
+                <h>Why choose us?</h>
+                <p class="about-para">
+                    We provide the most relevant interview questions to prepare you
+                    to conquer the anxiety<br> and the screwed interview questions to prepare you to think independently & logically.
+                </p>
+            </div>
+            <div class="about-container">
+                <h>Our Vision</h>
+                <p class="about-para">
+                    We envision a world where talent from every corner—whether Tier I 
+                    cities or Tier IV <br>towns—gets the opportunity to shine. Through cutting-edge tools, expert mentorship, and a personalized approach, we strive to level the playing field for career success.
+            </div>
+        </div>
+
+        <!-- Contact page -->
+        <div class="contact-container" id="contact-content" style="display: none;">
+            <h1 class="contact-heading">Contact Us</h1>
+            <p class="contact-para">Have questions? Reach out to us!</p>
+
+            <form class="contact-form">
+                <input type="text" class="input" placeholder="Your Name" required>
+                <input type="email" class="input" placeholder="Your Email" required>
+                <textarea class="input" placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit" class="button" id="contact-button">Send Message</button>
+            </form>
+        </div>
+        
+        <!-- Cources page -->
+        <div class="courses" id="courses-content" style="display: none;">
+            <h1 class="courses-heading">Our Courses</h1>
+           <div class="courses-container">
+                <div class="course-card">
+                    <img src="https://res.cloudinary.com/damj7tgfm/image/upload/v1739942283/max-duzij-qAjJk-un3BI-unsplash_vooizh.jpg" alt="Course 1">
+                    <h2>Software Development</h2>
+                </div>
+                <div class="course-card">
+                    <img src="https://res.cloudinary.com/damj7tgfm/image/upload/v1739942363/campaign-creators-yktK2qaiVHI-unsplash_vd2rcx.jpg" alt="Course 2">
+                    <h2>Marketing</h2>
+                </div>
+                <div class="course-card">
+                    <img src="https://res.cloudinary.com/damj7tgfm/image/upload/v1739942427/nick-chong-N__BnvQ_w18-unsplash_kkpgmh.jpg" alt="Course 3">
+                    <h2>Finance</h2>
+                </div>
+                <div class="course-card">
+                    <img src="https://res.cloudinary.com/damj7tgfm/image/upload/v1739942467/sebastian-herrmann-O2o1hzDA7iE-unsplash_jznmle.jpg" alt="Course 4">
+                    <h2>Human Resources</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Course Details Page-->
+        <div class="course-details" id="course-details-content">
+            <h1 id="course-title"></h1>
+        </div>
+    </div>
+    
+    <!-- Sign Up Form-->
+    <div class="form-background" id="form-background-container">
+        <img class="logo form-logo" id="LOGO" src="https://res.cloudinary.com/novicetopro/image/upload/v1679235120/androidArtboard_2-removebg-preview_1_1.png"/>
+        <div class="form-container" id="form-containerr">
+            <form class="form">
+                <h1 class="form-heading">Sign Up</h1>
+                <p>Sign Up with</p>
+                <div class="options">
+                    <button class="option-button" id="google-signup-button">Google</button>
+                    <button class="option-button" id="yahoo-signup-button">Yahoo</button>
+                </div>
+                <p class="or">or</p>
+                <input type="text" class="input" placeholder="Name" id="sign-up-name">
+                <input type="email" class="input" placeholder="Email" id="sign-up-email">
+                <input type="password" class="input" placeholder="Password" id="sign-up-password">
+                <div>
+                    <button class="form-button" id="signUp-button">Submit</button>
+                    <button class="form-button back-buton" id="back-to-home">Back to home</button>
+                </div>
+                <p>Already have an account? <a id="anchor-element" class="anchor">Sign in</a></p>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Sign In Form -->
+    <div class="form-background" id="sign-in-containerr">
+        <img class="logo form-logo" id="LOGO" src="https://res.cloudinary.com/novicetopro/image/upload/v1679235120/androidArtboard_2-removebg-preview_1_1.png"/>
+        <div class="form-container">
+            <form class="form">
+                <h1 class="form-heading">Sign In</h1>
+                <p>Sign In with</p>
+                <div class="options">
+                    <button class="option-button" id="google-signin-button">Google</button>
+                    <button class="option-button" id="yahoo-signin-button">Yahoo</button>
+                </div>
+                <p class="or">or</p>
+                <input type="email" class="input" placeholder="Email" id="signIn-email">
+                <input type="password" class="input" placeholder="Password" id="signUp-password">
+                <div>
+                    <button class="form-button" id="signIn-button">Submit</button>
+                    <button class="form-button back-buton" id="sign-in-back-home-btn">Back to Home</button> 
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Footer Page-->
+    <footer class="footer-section">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3 class="footer-title">Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#" class="footer-link">Home</a></li>
+                    <li><a href="#" class="footer-link">About</a></li>
+                    <li><a href="#" class="footer-link">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3 class="footer-title">Follow Us</h3>
+                <div class="footer-social">
+                    <a href="#" class="footer-icon"><i class="bi bi-facebook"></i> Facebook</a>
+                    <a href="#" class="footer-icon"><i class="bi bi-twitter-x"></i> Twitter</a>
+                    <a href="#" class="footer-icon"><i class="bi bi-instagram"></i> Instagram</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3 class="footer-title">Our Address</h3>
+                <p class="footer-text">HD 26, We Work Manyata, NXT Tower 1, Nagawara, Bengaluru Karnataka</p>
+                <a href="https://maps.app.goo.gl/qwyxSq466JQttSFn6" target="_blank" class="footer-link">Get Directions <i class="bi bi-geo-alt"></i></a>
+            </div>
+        </div>
+        <hr class="footer-horizontal"> 
+        <p class="footer-bottom">&copy; 2025 Pinco. All rights reserved.</p>
+    </footer>
+    <script src="sample.js"></script>
+    <!-- Bootstrap JS (for Carousel) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
