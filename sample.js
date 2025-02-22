@@ -178,23 +178,19 @@ signInBtn.addEventListener("click", function (event) {
 
 
 // sign in options
-document.getElementById("google-signup-button").addEventListener("click", function () {
+document.getElementById("google-button").addEventListener("click", function (event) {
+    event.preventDefault()
     window.open("https://accounts.google.com/signup", "_blank");
 });
 
 
-document.getElementById("yahoo-signup-button").addEventListener("click", function () {
-    window.open("https://login.yahoo.com/account/create", "_blank");
+document.getElementById("facebook-button").addEventListener("click", function () {
+    window.open("https://www.facebook.com/", "_blank");
 });
 
 
-document.getElementById("google-signin-button").addEventListener("click", function () {
-    window.open("https://accounts.google.com/signin", "_blank");
-});
-
-
-document.getElementById("yahoo-signin-button").addEventListener("click", function () {
-    window.open("https://login.yahoo.com/", "_blank");
+document.getElementById("microsoft-button").addEventListener("click", function () {
+    window.open("https://account.microsoft.com/account/Account", "_blank");
 });
 
 
