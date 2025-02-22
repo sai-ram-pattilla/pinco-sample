@@ -230,6 +230,26 @@
      font-size: medium;
  }
 
+ .captcha-container {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid;
+    text-align: center;
+    padding: 5px;
+    justify-content: space-between;
+    width: 195px;
+    height: 35px;
+    font-weight: bold;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+}
+
+#captcha-input{
+    margin: 10px;
+}
+
 
  @media screen and (max-width: 992px){
     .form{

@@ -98,7 +98,7 @@ SignInBAckBtn.addEventListener('click', function () {
 // validating Email
 function validateEmail(email) {
     let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailPattern.test(email);
+    return email.endsWith("@gmail.com");
 }
 
 
@@ -109,8 +109,9 @@ signUpBtn.addEventListener("click", function (event) {
     let name = document.getElementById("sign-up-name");
     let email = document.getElementById("sign-up-email");
     let password = document.getElementById("sign-up-password");
+    let confirmPassword = document.getElementById('confirm-password')
 
-    if (name.value.trim() === "" || email.value.trim() === "" || password.value.trim() === "") {
+    if (name.value.trim() === "" || email.value.trim() === "" || password.value.trim() === "" || confirmPassword.value.trim() === "") {
         alert("All fields are required!");
         return;
     }
@@ -122,6 +123,11 @@ signUpBtn.addEventListener("click", function (event) {
 
     if (password.value.trim().length < 6) {
         alert("Password must be at least 6 characters long!");
+        return;
+    }
+
+    if (password.value.trim()  !== confirmPassword.value.trim()){
+        alert("Password and Confirm Password must be same")
         return;
     }
 
@@ -149,12 +155,23 @@ signInBtn.addEventListener("click", function (event) {
     let emailInput = document.getElementById("signIn-email");
     let passwordInput = document.getElementById("signUp-password");
 
+    let captchaInput = document.getElementById("captcha-input");
+    let captchaText = localStorage.getItem('captcha')
+
+
     let email = emailInput.value.trim();
     let password = passwordInput.value.trim();
+    let captcha = captchaInput.value.trim()
 
     if (email === "" || password === "") {
         alert("All fields are required!");
         return;
+    }
+
+    if(captcha != captchaText){
+        console.log(captchaText)
+       alert("Captcha Incorrect, try again...")
+       return;
     }
 
     let storedEmail = localStorage.getItem("userEmail");
@@ -165,6 +182,8 @@ signInBtn.addEventListener("click", function (event) {
 
         emailInput.value = "";
         passwordInput.value = "";
+        captchaInput.value = ""
+
 
         // Navigate to home
         SignInContainer.style.display = "none";
@@ -175,6 +194,33 @@ signInBtn.addEventListener("click", function (event) {
         SignInContainer.style.display = "block";
     }
 });
+
+// Captcha Funtionality
+
+document.addEventListener("DOMContentLoaded", function(){
+    generateCaptcha()
+})
+
+let generatedCaptcha = document.getElementById("captcha-text");
+let InputCaptcha = document.getElementById('captcha-input');
+
+function generateCaptcha() {
+    const randomChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let captcha = "";
+    
+    for (let i = 0; i < 4; i++) { 
+        let randomIndex = Math.floor(Math.random() * randomChar.length);
+        captcha += randomChar[randomIndex];
+    }
+    generatedCaptcha.textContent = captcha;
+    
+    localStorage.setItem("captcha", captcha); 
+    console.log(captcha);
+    return captcha;
+}
+
+
+
 
 
 // sign in options
