@@ -20,11 +20,14 @@
                 <ul class="nav">
                     <li class="nav-item"  id = "home">Home</li>
                     <li class="nav-item" id = "cources">Cources</li>
+                    <li class="nav-item" id="exercise">Exercises</li>
                     <li class="nav-item"  id="about" >About</li>
                     <li class="nav-item" id = "contact">Contact</li>
                 </ul>
             </div>
+            <span id="welcome-user"></span>
             <button class="button-nav" id="signIn/signUp-button">Sign Up/Sign In</button>
+            <button class="button-nav" id="logout-button" style="display:none;">Logout</button>
         </div>
         <!-- Mobile View-->
         <nav class="navbar navbar-expand-lg navbar-light bg-transparent d-lg-none shadow-sm">
@@ -43,6 +46,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="cources-mob" href="#">Courses</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="exercise-mob" href="#">Exercises</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="about-mob" href="#">About</a>
@@ -196,6 +202,30 @@
         <div class="course-details" id="course-details-content">
             <h1 id="course-title"></h1>
         </div>
+
+        <!-- Exercise Section -->
+        <div class="exercise-section" id="exercise-content" style="display: none;">
+            <h1 class="exercise-heading">Practice Tests</h1>
+            <p class="exercise-guide">Select a course and start your test.</p>
+            <select id="exercise-dropdown" class="exercise-dropdown">
+                <option value="">Select a Course</option>
+                <option value="Software Development">Software Development</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Finance">Finance</option>
+                <option value="Human Resources">Human Resources</option>
+                <option value="Data Science & AI">Data Science & AI</option>
+                <option value="Cybersecurity">Cybersecurity</option>
+            </select>
+            <button class="button" id="start-exercise">Start Test</button>
+
+            <div id="exercise-questions" class="exercise-questions" style="display: none;">
+                <h2 id="exercise-title"></h2>
+                <div id="questions-container"></div>
+                <button class="button" id="submit-exercise">Submit Test</button>
+            </div>
+        </div>
+ 
+
     </div>
     
     <!-- Sign Up Form-->
@@ -241,7 +271,7 @@
                 <input type="password" class="input" placeholder="Password" id="signUp-password">
                 <div class="captcha-container">
                     <p id="captcha-text" ></p>
-                    <i class="bi bi-arrow-clockwise" onclick="generateCaptcha()"></i>
+                    <i class="bi bi-arrow-clockwise captcha-button" onclick="generateCaptcha()"></i>
                </div>
                <input type="text" id="captcha-input" placeholder="Enter CAPTCHA">
                 <div>
