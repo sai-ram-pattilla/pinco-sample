@@ -1,4 +1,5 @@
 let signUpBtnEl = document.getElementById('signIn/signUp-button');
+let logoutBtnEl = document.getElementById("logout-button");
 
 let BackGround = document.getElementById('background-container');
 
@@ -105,7 +106,6 @@ document.getElementById("exercise").addEventListener("click", function () {
 
 // validating Email
 function validateEmail(email) {
-    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return email.endsWith("@gmail.com");
 }
 
@@ -149,7 +149,7 @@ document.getElementById("logout-button").addEventListener("click", function () {
 
 
 // Sign Up Form Validation
-signUpBtn.addEventListener("click", function (event) {
+signUpBtn.addEventListener("click", async function (event) {
     event.preventDefault(); 
 
     let name = document.getElementById("sign-up-name");
@@ -157,8 +157,6 @@ signUpBtn.addEventListener("click", function (event) {
     let password = document.getElementById("sign-up-password");
     let confirmPassword = document.getElementById('confirm-password')
     
-    
-
     if (name.value.trim() === "" || email.value.trim() === "" || password.value.trim() === "" || confirmPassword.value.trim() === "") {
         alert("All fields are required!");
         return;
@@ -178,13 +176,34 @@ signUpBtn.addEventListener("click", function (event) {
         alert("Password and Confirm Password must be same")
         return;
     }
+    
 
-    // Store user credentials (
-    localStorage.setItem("name",name.value.trim())
-    localStorage.setItem("userEmail", email.value.trim());
-    localStorage.setItem("userPassword", password.value.trim());
+    try{
+        const response = await fetch("http://localhost:3000/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                name: name.value.trim(), 
+                email: email.value.trim(), 
+                password: password.value.trim() 
+             })
+        });
+    
+        const result = await response.text();
+        alert(result);
 
-    alert("Sign up successful! Redirecting to Sign In...");
+        if(response.ok){
+            localStorage.setItem("name",name.value.trim())
+            localStorage.setItem("userEmail", email.value.trim());
+            checkUserAuthentication();
+            document.getElementById("sign-in-containerr").style.display = "block";
+        }
+
+    } catch(error){
+        console.log("error:",error)
+        alert("Failed to register")
+    }
+    
 
     // Clear input fields
     name.value = "";
@@ -199,7 +218,7 @@ signUpBtn.addEventListener("click", function (event) {
 
 
 // Sign In Form Validation
-signInBtn.addEventListener("click", function (event) {
+signInBtn.addEventListener("click", async function (event) {
     event.preventDefault();
 
     let emailInput = document.getElementById("signIn-email");
@@ -224,26 +243,31 @@ signInBtn.addEventListener("click", function (event) {
        generateCaptcha()
        return;
     }
+    
 
-    let storedEmail = localStorage.getItem("userEmail");
-    let storedPassword = localStorage.getItem("userPassword");
+    try{
+        const response = await fetch("http://localhost:3000/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+        });
 
-    if (email === storedEmail && password === storedPassword) {
-        alert("Sign in successful! Redirecting to Home...");
-        checkUserAuthentication(); 
+        const result = await response.json();
 
-        emailInput.value = "";
-        passwordInput.value = "";
-        captchaInput.value = ""
-
-
-        // Navigate to home
-        SignInContainer.style.display = "none";
-        BackGround.style.display = "block";
-        showSection("body-container", homeEl);
-    } else {
-        alert("Invalid email or password! Please try again.");
-        SignInContainer.style.display = "block";
+        if (response.ok){
+            localStorage.setItem("name", result.user.name);
+            localStorage.setItem("userEmail", result.user.email);
+            alert("Login successful!");
+            checkUserAuthentication();
+            BackGround.style.display = "block";
+            showSection("body-container", homeEl);
+        }else{
+            alert(result.error);
+        }
+    }
+    catch{
+        console.error("Error:", error);
+        alert("Failed to log in");
     }
 });
 
