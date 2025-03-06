@@ -1,0 +1,2 @@
+//individual course details
+

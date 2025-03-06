@@ -31,30 +31,42 @@ app.listen(port, () => {
 });
 
 
-// sign up logic
 app.post("/register", async (request, response) => {
     try {
         const { name, email, password } = request.body;
-        
+
         if (!name || !email || !password) {
-            return response.status(400).send("All fields are required!");
+            return response.status(400).json({ error: "All fields are required!" });
         }
 
-        console.log("Received Data:", name, email, password);
+        //console.log("Received Data:", name, email, password);
 
-        const encryptedPassword = await bcrypt.hash(password, 10);
-
-        const sql = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
-        db.query(sql, [name, email, encryptedPassword], (error, result) => {
-            if (error) {
-                console.error("Error inserting user:", error);
-                return response.status(500).send("Error registering user");
+        
+        const checkEmailQuery = "SELECT * FROM users WHERE email = ?";
+        db.query(checkEmailQuery, [email], async (err, results) => {
+            if (err) {
+                console.error("Database Error:", err);
+                return response.status(500).json({ error: "Database error" });
             }
-            response.status(200).send("User registered successfully");
+
+            if (results.length > 0) {
+                return response.status(400).json({ error: "Email already registered!" });
+            }
+
+    
+            const encryptedPassword = await bcrypt.hash(password, 10);
+            const sql = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
+            db.query(sql, [name, email, encryptedPassword], (error, result) => {
+                if (error) {
+                    console.error("Error inserting user:", error);
+                    return response.status(500).json({ error: "Error registering user" });
+                }
+                response.status(201).json({ message: "User registered successfully" });
+            });
         });
     } catch (err) {
         console.error("Server Error:", err);
-        response.status(500).send("Internal Server Error");
+        response.status(500).json({ error: "Internal Server Error" });
     }
 });
 
@@ -86,6 +98,7 @@ app.post("/login", (request,response) =>{
         }
 
         response.status(200).json({ message: "Login successful", user: { name: user.name, email: user.email } });
+        console.log(user.name)
 
     })
-})
+});

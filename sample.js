@@ -20,6 +20,7 @@ let homeContent = document.getElementById("body-container");
 let homeEl = document.getElementById("home");
 
 let exerciseContent = document.getElementById("exercise-content")
+let jobsContent = document.getElementById("jobs-content");
 
 // Navigation function
 function showSection(section, activeElement) {
@@ -29,6 +30,7 @@ function showSection(section, activeElement) {
     let coursesContent = document.getElementById("courses-content");
     let courseDetailsContent = document.getElementById("course-details-content");
     let exerciseContent = document.getElementById("exercise-content")
+    let interviewQuestionsContainer = document.getElementById("detailed-course-container");
 
     homeContent.style.display = "none";
     aboutContent.style.display = "none";
@@ -36,6 +38,8 @@ function showSection(section, activeElement) {
     coursesContent.style.display = "none";
     courseDetailsContent.style.display = "none";
     exerciseContent.style.display= "none"
+    jobsContent.style.display = "none"
+    interviewQuestionsContainer.style.display = "none"
 
     SignUpContainer.style.display = "none";
     SignInContainer.style.display = "none";
@@ -77,9 +81,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Form Actions
-SignUpContainer.style.display = "none";
-SignInContainer.style.display = "none";
-
 signUpBtnEl.addEventListener('click', function () {
     SignUpContainer.style.display = "block";
     BackGround.style.display = "none";
@@ -104,12 +105,14 @@ document.getElementById("exercise").addEventListener("click", function () {
     showSection("exercise-content", this);
 });
 
+document.getElementById("jobs").addEventListener("click", function () {
+    showSection("jobs-content", this);
+});
+
 // validating Email
 function validateEmail(email) {
     return email.endsWith("@gmail.com");
 }
-
-
 
 document.addEventListener("DOMContentLoaded", function () {
     checkUserAuthentication();
@@ -146,7 +149,6 @@ document.getElementById("logout-button").addEventListener("click", function () {
     alert("Logged out successfully!");
     checkUserAuthentication();
 });
-
 
 // Sign Up Form Validation
 signUpBtn.addEventListener("click", async function (event) {
@@ -189,14 +191,17 @@ signUpBtn.addEventListener("click", async function (event) {
              })
         });
     
-        const result = await response.text();
-        alert(result);
+        const result = await response.json();
 
         if(response.ok){
-            localStorage.setItem("name",name.value.trim())
-            localStorage.setItem("userEmail", email.value.trim());
-            checkUserAuthentication();
-            document.getElementById("sign-in-containerr").style.display = "block";
+            alert("Registration Successful")
+
+            SignInContainer.style.display = "block";
+            SignUpContainer.style.display= "none"
+        }else{
+            alert(result.error)
+            console.log(result.error)
+            SignUpContainer.style.display= "block"
         }
 
     } catch(error){
@@ -210,12 +215,7 @@ signUpBtn.addEventListener("click", async function (event) {
     email.value = "";
     password.value = "";
     confirmPassword.value = "";
-
-    // Hide sign-up form and show sign-in form
-    SignUpContainer.style.display = "none";
-    SignInContainer.style.display = "block";
 });
-
 
 // Sign In Form Validation
 signInBtn.addEventListener("click", async function (event) {
@@ -272,7 +272,6 @@ signInBtn.addEventListener("click", async function (event) {
 });
 
 // Captcha Funtionality
-
 document.addEventListener("DOMContentLoaded", function(){
     generateCaptcha()
 })
@@ -281,7 +280,7 @@ let generatedCaptcha = document.getElementById("captcha-text");
 let InputCaptcha = document.getElementById('captcha-input');
 
 function generateCaptcha() {
-    const randomChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const randomChar = "ABCD@stuvEFGHI#3456J!KLMNX=YZabcdefg$hijklOPQ$RSTU?VWmno%pqrwxy&z0127?89";
     let captcha = "";
     
     for (let i = 0; i < 4; i++) { 
@@ -295,58 +294,50 @@ function generateCaptcha() {
     return captcha;
 }
 
-
-
-
-
 // sign in options
 document.getElementById("google-button").addEventListener("click", function (event) {
     event.preventDefault()
     window.open("https://accounts.google.com/signup", "_blank");
 });
 
-
 document.getElementById("facebook-button").addEventListener("click", function () {
     window.open("https://www.facebook.com/", "_blank");
 });
-
 
 document.getElementById("microsoft-button").addEventListener("click", function () {
     window.open("https://account.microsoft.com/account/Account", "_blank");
 });
 
-
-
-// Courses Data
+// courses data
 const courses = {
     "Software Development": [
         {
-            description: "HTML, CSS, and JavaScript for Web Development.",
+            description: "HTML CSS and JavaScript",
             price: "$199",
             duration: "6 months"
         },
         {
-            description: "React and Angular for Frontend Development.",
+            description: "React and Angular",
             price: "$249",
             duration: "6 months"
         },
         {
-            description: "Node.js and Express.js for Backend Development.",
+            description: "Node.js and Express.js",
             price: "$229",
             duration: "5 months"
         },
         {
-            description: "Cybersecurity and Ethical Hacking to secure your applications.",
+            description: "Cybersecurity and Ethical Hacking",
             price: "$299",
             duration: "6 months"
         },
         {
-            description: "Python and Django for Web Applications.",
+            description: "Python",
             price: "$219",
             duration: "5 months"
         },
         {
-            description: "Data Structures and Algorithms for Coding Interviews.",
+            description: "Data Structures and Algorithms",
             price: "$259",
             duration: "6 months"
         },
@@ -523,7 +514,7 @@ const courses = {
     ]
 };
 
-
+// displaying course
 function displayCourseDetails(courseTitle) {
     let courseArray = courses[courseTitle];
     let detailsContainer = document.getElementById("course-details-content");
@@ -562,15 +553,146 @@ function displayCourseDetails(courseTitle) {
     detailsContainer.appendChild(newDetailsContainer);
     showSection("course-details-content", document.getElementById("cources"));
 }
-    
 
 document.querySelectorAll(".course-card").forEach(card => {
     card.addEventListener("click", function () {
-        let courseTitle = this.querySelector("h2").textContent; 
+        let courseTitle = this.querySelector("h2").textContent;
         console.log(courseTitle);
         displayCourseDetails(courseTitle);
     });
 });
+
+// displaying detailed courses
+function displayCourseDetails(courseTitle) {
+    let courseArray = courses[courseTitle];
+    let detailsContainer = document.getElementById("course-details-content");
+
+    let existingDetails = document.getElementById("course-description");
+    if (existingDetails) {
+        existingDetails.remove();
+    }
+
+    let newDetailsContainer = document.createElement("div");
+    newDetailsContainer.id = "course-description";
+
+    let title = document.createElement("h2");
+    title.textContent = courseTitle;
+    newDetailsContainer.appendChild(title);
+
+    courseArray.forEach((course, index) => {
+        let paraContainer = document.createElement("div");
+        paraContainer.classList.add("course-details-card");
+
+        let description = document.createElement("p");
+        description.textContent = "Description: " + course.description;
+
+        let price = document.createElement("p");
+        price.textContent = "Price: " + course.price;
+
+        let duration = document.createElement("p");
+        duration.textContent = "Subscription Duration: " + course.duration;
+
+        paraContainer.appendChild(description);
+        paraContainer.appendChild(price);
+        paraContainer.appendChild(duration);
+
+        newDetailsContainer.appendChild(paraContainer);
+    });
+
+    detailsContainer.appendChild(newDetailsContainer);
+    showSection("course-details-content", document.getElementById("cources"));
+}
+
+// Attach event listener for `.course-card` to display details
+document.querySelectorAll(".course-card").forEach(card => {
+    card.addEventListener("click", function () {
+        let courseTitle = this.querySelector("h2").textContent;
+        displayCourseDetails(courseTitle);
+    });
+});
+
+// Attach event listener to `.course-details-card` using event delegation
+document.addEventListener("click", function (event) {
+    let card = event.target.closest(".course-details-card");
+    if (card) {
+        let firstParagraph = card.querySelector("p");
+        if (firstParagraph) {
+            let course = firstParagraph.textContent.replace("Description:", "").trim();
+            console.log(course);
+            displayDetailedCourse(course)
+        }
+    }
+});
+
+const interviewQuestions = {
+    "HTML CSS and JavaScript": [
+        { question: "What is JavaScript?", answer: "JavaScript is a programming language used for web development to create dynamic and interactive content." },
+        { question: "Explain event delegation.", answer: "Event delegation allows handling events efficiently by adding a single listener to a parent element, which manages child elements dynamically." },
+        { question: "What are promises in JavaScript?", answer: "Promises are used to handle asynchronous operations in JavaScript, providing a way to execute code after an operation completes successfully or fails." },
+        { question: "What is the difference between localStorage, sessionStorage, and cookies?", answer: "localStorage and sessionStorage store data in the browser, but sessionStorage clears when the session ends, while localStorage persists. Cookies store data that can be sent to the server with requests." },
+        { question: "What is the difference between block, inline, and inline-block elements in CSS?", answer: "Block elements take the full width available, inline elements do not break lines, and inline-block elements behave like inline elements but allow setting width and height." }
+    ],
+    "React and Angular": [
+        { question: "What is the difference between React and Angular?", answer: "React is a library for building UI components, whereas Angular is a full-fledged framework with built-in tools like dependency injection." },
+        { question: "What are React hooks?", answer: "React hooks are functions that allow functional components to manage state and lifecycle methods without using class components." },
+        { question: "What is the Virtual DOM in React?", answer: "The Virtual DOM is a lightweight copy of the real DOM that React updates before making efficient changes to the actual DOM." },
+        { question: "How does two-way data binding work in Angular?", answer: "Two-way data binding in Angular allows synchronization between the model and the view using [(ngModel)] in templates." },
+        { question: "What are Angular Directives?", answer: "Angular Directives extend HTML functionality. Examples include *ngIf, *ngFor, and custom structural directives." }
+    ],
+    "Node.js and Express.js": [
+        { question: "What is Node.js?", answer: "Node.js is a runtime environment that allows JavaScript to be executed outside the browser, using the V8 engine." },
+        { question: "What is Express.js and why is it used?", answer: "Express.js is a lightweight framework for Node.js used to create web applications and APIs efficiently." },
+        { question: "What is middleware in Express.js?", answer: "Middleware in Express.js are functions that execute between the request and response cycle, used for logging, authentication, etc." },
+        { question: "What is the difference between synchronous and asynchronous programming in Node.js?", answer: "Synchronous programming blocks execution until a task is complete, whereas asynchronous programming allows tasks to be executed concurrently without blocking execution." },
+        { question: "What is RESTful API?", answer: "A RESTful API follows REST principles to enable communication between clients and servers using HTTP methods like GET, POST, PUT, and DELETE." }
+    ]
+};
+
+function displayDetailedCourse(course){
+    document.getElementById("detailed-course-title").textContent =course ;
+
+    let extraContainer = document.createElement("div");
+    extraContainer.classList.add("questions-container")
+    extraContainer.id = "questions-container-content"
+     
+    let prvDetails = document.getElementById("questions-container-content")
+    let prvButton = document.getElementById("testButton")
+
+    if (prvDetails){
+         prvDetails.remove();
+    }
+
+    if(prvButton){
+        prvButton.remove();
+    }
+
+    courseData= interviewQuestions[course]
+     
+    extraContainer.innerHTML = `<h3 class = "questions-heding">Interview Questions & Answers:</h3>`;
+    courseData.forEach(q => {
+        extraContainer.innerHTML += `
+            <p><strong>Q:</strong> ${q.question}</p>
+            <p><strong>A:</strong> ${q.answer}</p>
+        `;
+    });
+    let testButton = document.createElement("button");
+    testButton.classList.add("test-button")
+    testButton.textContent = "Take Test" 
+    testButton.id = "testButton"
+
+    document.getElementById("detailed-course-container").appendChild(extraContainer)
+    document.getElementById("detailed-course-container").appendChild(testButton)
+
+
+    showSection("detailed-course-container", document.getElementById("cources"));
+
+    testButton.addEventListener("click", function(){
+        showSection("exercise-content", document.getElementById("exercise"));
+    })
+}
+
+
+
 
 
 
@@ -581,7 +703,9 @@ const sections = {
     cources: "courses-content",
     exercise: "exercise-content",
     details: "course-details-content",
-    signUp : 'form-background-container'
+    signUp : 'form-background-container',
+    Jobs : "jobs-content"
+
 };
 
 //  Function to Handle Mobile Navigation Clicks
@@ -591,6 +715,7 @@ function handleMobileNavClick() {
             event.preventDefault();
             let sectionId = this.id.replace("-mob", "");
             console.log(sectionId)
+            document.querySelectorAll(".nav-link").forEach(item => item.classList.remove("active"));
             showSection(sections[sectionId] || "body-container", this);
 
             // Close the mobile navbar after clicking
@@ -732,3 +857,56 @@ document.getElementById("submit-exercise").addEventListener("click", function ()
     exerciseContainer.style.display = "none"
     document.getElementById("exercise-dropdown").value = ""
 });
+
+
+//Jobs Section
+
+const jobs = [
+    {
+        id: 1,
+        title: "Software Developer",
+        company: "Google",
+        location: "Bangalore, India",
+        description: "Develop and maintain scalable web applications."
+    },
+    {
+        id: 2,
+        title: "Data Scientist",
+        company: "Amazon",
+        location: "Hyderabad, India",
+        description: "Work with machine learning models and big data analytics."
+    },
+    {
+        id: 3,
+        title: "UI/UX Designer",
+        company: "Microsoft",
+        location: "Remote",
+        description: "Create intuitive user interfaces and experiences."
+    }
+];
+
+// Function to display jobs
+
+document.addEventListener("DOMContentLoaded", function () {
+    displayJobs();
+});
+
+function displayJobs() {
+    let jobsContainer = document.getElementById("jobs-container");
+    jobsContainer.innerHTML = ""; 
+
+    jobs.forEach(job => {
+        let jobCard = document.createElement("div");
+        jobCard.classList.add("job-card");
+        
+        jobCard.innerHTML = `
+            <h3>${job.title}</h3>
+            <p><strong>Company:</strong> ${job.company}</p>
+            <p><strong>Location:</strong> ${job.location}</p>
+            <p>${job.description}</p>
+            <button class="apply-button" onclick="applyForJob('${job.title}')">Apply</button>
+        `;
+        
+        jobsContainer.appendChild(jobCard);
+    });
+}

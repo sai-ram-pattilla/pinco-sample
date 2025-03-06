@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="sample.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"/>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
@@ -20,6 +21,7 @@
                     <li class="nav-item"  id = "home">Home</li>
                     <li class="nav-item" id = "cources">Cources</li>
                     <li class="nav-item" id="exercise">Exercises</li>
+                    <li class="nav-item" id = "jobs">Jobs</li>
                     <li class="nav-item"  id="about" >About</li>
                     <li class="nav-item" id = "contact">Contact</li>
                 </ul>
@@ -54,6 +56,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="contact-mob" href="#">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="Jobs-mob" href="#">Jobs</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="signUp-mob" href="#">Sign Up/Sign In</a>
@@ -159,7 +164,7 @@
                     We envision a world where talent from every corner—whether Tier I 
                     cities or Tier IV <br>towns—gets the opportunity to shine. Through cutting-edge tools, expert mentorship, and a personalized approach, we strive to level the playing field for career success.
             </div>
-        </div>
+        </div> 
 
         <!-- Contact page -->
         <div class="contact-container" id="contact-content" style="display: none;">
@@ -195,7 +200,7 @@
                     <h2>Human Resources</h2>
                 </div>
             </div>
-        </div>
+        </div> 
 
         <!-- Course Details Page-->
         <div class="course-details" id="course-details-content">
@@ -223,7 +228,17 @@
                 <button class="button" id="submit-exercise">Submit Test</button>
             </div>
         </div>
- 
+
+        <!--Jobs Section-->
+        <div class="jobs-section" id="jobs-content" style="display: none;">
+            <h2 class="jobs-heading">Available Jobs</h2>
+            <div id="jobs-container"></div>
+        </div>
+
+        <!-- Detailed Course Details-->
+         <div class="detailed-course-details" id="detailed-course-container">
+            <h3 id="detailed-course-title"></h3>
+         </div>
 
     </div>
     
@@ -310,9 +325,9 @@
         <p class="footer-bottom">&copy; 2025 Pinco. All rights reserved.</p>
     </footer>
     <script src="sample.js"></script>
+    <script src="courseDetails.js"></script>
 
     <!-- Bootstrap JS (for Carousel) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>
