@@ -566,6 +566,7 @@
      width: 50%;
      align-self: center;
      margin: 50px auto;
+     cursor: pointer;
      box-shadow: 1px 1px 5px gray;
      transform: scale(1.1);
  }

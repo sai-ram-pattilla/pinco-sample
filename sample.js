@@ -116,6 +116,10 @@ function validateEmail(email) {
 
 document.addEventListener("DOMContentLoaded", function () {
     checkUserAuthentication();
+
+    if (!localStorage.getItem("userEmail")) {
+        document.getElementById("exercise-content").style.display = "none";
+    }
 });
 
 // Function to check if user is logged in
@@ -134,6 +138,8 @@ function showLoggedInUI() {
     document.getElementById("signIn/signUp-button").style.display = "none";
     document.getElementById("logout-button").style.display = "block";
     document.getElementById("welcome-user").innerHTML = `Welcome, ${localStorage.getItem("name")}`;
+
+    document.getElementById("exercise").style.display = "block";
 }
 
 // Show UI for non-logged-in user
@@ -141,6 +147,8 @@ function showGuestUI() {
     document.getElementById("signIn/signUp-button").style.display = "block"; 
     document.getElementById("logout-button").style.display = "none";
     document.getElementById("welcome-user").innerHTML = "";
+
+    document.getElementById("exercise").style.display = "none";
 }
 
 // Logout function
@@ -332,6 +340,11 @@ const courses = {
             duration: "6 months"
         },
         {
+            description: "Java",
+            price: "$299",
+            duration: "4 months"
+        },
+        {
             description: "Python",
             price: "$219",
             duration: "5 months"
@@ -342,20 +355,21 @@ const courses = {
             duration: "6 months"
         },
         {
-            description: "Database Management (SQL & NoSQL) and MongoDB.",
+            description: "SQL & NoSQL",
             price: "$199",
             duration: "4 months"
         }
+       
     ],
 
     "Marketing": [
         {
-            description: "Marketing Management & Strategy.",
+            description: "Marketing Management & Strategy",
             price: "$150",
             duration: "4 months"
         },
         {
-            description: "Consumer Behavior & Market Research.",
+            description: "Consumer Behavior & Market Research",
             price: "$130",
             duration: "3 months"
         },
@@ -383,12 +397,12 @@ const courses = {
 
     "Finance": [
         {
-            description: "Financial Accounting & Reporting.",
+            description: "Financial Accounting & Reporting",
             price: "$180",
             duration: "5 months"
         },
         {
-            description: "Investment Banking and Portfolio Management.",
+            description: "Investment Banking and Portfolio Management",
             price: "$250",
             duration: "6 months"
         },
@@ -416,32 +430,32 @@ const courses = {
 
     "Human Resources": [
         {
-            description: "Performance Management and Employee Appraisals.",
+            description: "Performance Management and Employee Appraisals",
             price: "$130",
             duration: "3 months"
         },
         {
-            description: "Talent Acquisition, Recruitment, and Onboarding.",
+            description: "Talent Acquisition, Recruitment, and Onboarding",
             price: "$150",
             duration: "4 months"
         },
         {
-            description: "HR Analytics and Data-Driven Decision Making.",
+            description: "HR Analytics and Data-Driven Decision Making",
             price: "$180",
             duration: "5 months"
         },
         {
-            description: "Workplace Ethics, Diversity, and Inclusion.",
+            description: "Workplace Ethics, Diversity, and Inclusion",
             price: "$140",
             duration: "4 months"
         },
         {
-            description: "Employment Law, Compliance, and Labor Relations.",
+            description: "Employment Law, Compliance, and Labor Relations",
             price: "$190",
             duration: "5 months"
         },
         {
-            description: "Organizational Behavior and Leadership Development.",
+            description: "Organizational Behavior and Leadership Development",
             price: "$200",
             duration: "6 months"
         }
@@ -563,55 +577,6 @@ document.querySelectorAll(".course-card").forEach(card => {
 });
 
 // displaying detailed courses
-function displayCourseDetails(courseTitle) {
-    let courseArray = courses[courseTitle];
-    let detailsContainer = document.getElementById("course-details-content");
-
-    let existingDetails = document.getElementById("course-description");
-    if (existingDetails) {
-        existingDetails.remove();
-    }
-
-    let newDetailsContainer = document.createElement("div");
-    newDetailsContainer.id = "course-description";
-
-    let title = document.createElement("h2");
-    title.textContent = courseTitle;
-    newDetailsContainer.appendChild(title);
-
-    courseArray.forEach((course, index) => {
-        let paraContainer = document.createElement("div");
-        paraContainer.classList.add("course-details-card");
-
-        let description = document.createElement("p");
-        description.textContent = "Description: " + course.description;
-
-        let price = document.createElement("p");
-        price.textContent = "Price: " + course.price;
-
-        let duration = document.createElement("p");
-        duration.textContent = "Subscription Duration: " + course.duration;
-
-        paraContainer.appendChild(description);
-        paraContainer.appendChild(price);
-        paraContainer.appendChild(duration);
-
-        newDetailsContainer.appendChild(paraContainer);
-    });
-
-    detailsContainer.appendChild(newDetailsContainer);
-    showSection("course-details-content", document.getElementById("cources"));
-}
-
-// Attach event listener for `.course-card` to display details
-document.querySelectorAll(".course-card").forEach(card => {
-    card.addEventListener("click", function () {
-        let courseTitle = this.querySelector("h2").textContent;
-        displayCourseDetails(courseTitle);
-    });
-});
-
-// Attach event listener to `.course-details-card` using event delegation
 document.addEventListener("click", function (event) {
     let card = event.target.closest(".course-details-card");
     if (card) {
@@ -645,6 +610,48 @@ const interviewQuestions = {
         { question: "What is middleware in Express.js?", answer: "Middleware in Express.js are functions that execute between the request and response cycle, used for logging, authentication, etc." },
         { question: "What is the difference between synchronous and asynchronous programming in Node.js?", answer: "Synchronous programming blocks execution until a task is complete, whereas asynchronous programming allows tasks to be executed concurrently without blocking execution." },
         { question: "What is RESTful API?", answer: "A RESTful API follows REST principles to enable communication between clients and servers using HTTP methods like GET, POST, PUT, and DELETE." }
+    ],
+    "Marketing Management & Strategy": [
+        { question: "What is marketing management?", answer: "Marketing management is the process of planning, executing, and overseeing marketing strategies to attract and retain customers while achieving business objectives." },
+        { question: "What are the 4 Ps of marketing?", answer: "The 4 Ps of marketing are Product, Price, Place, and Promotion. They form the foundation of any marketing strategy." },
+        { question: "What is a SWOT analysis in marketing?", answer: "SWOT analysis helps businesses evaluate their Strengths, Weaknesses, Opportunities, and Threats to develop strategic plans." },
+        { question: "What is market segmentation?", answer: "Market segmentation divides a market into distinct groups based on demographics, behavior, or other characteristics to target customers effectively." },
+        { question: "What is brand positioning?", answer: "Brand positioning refers to the strategy of establishing a brand in the minds of consumers by highlighting its unique value proposition." }
+    ],
+    "Consumer Behavior & Market Research": [
+        { question: "What is consumer behavior?", answer: "Consumer behavior studies how individuals make decisions to buy, use, and dispose of goods and services." },
+        { question: "What factors influence consumer behavior?", answer: "Factors include psychological (motivation, perception), social (family, culture), and personal (age, income) aspects." },
+        { question: "What is market research?", answer: "Market research involves collecting and analyzing data about consumers, competitors, and market trends to make informed business decisions." },
+        { question: "What is the difference between primary and secondary research?", answer: "Primary research involves gathering new data directly from sources, while secondary research uses existing data from reports, publications, and studies." },
+        { question: "What is customer lifetime value (CLV)?", answer: "CLV measures the total revenue a business can expect from a single customer over their lifetime." }
+    ],
+    "Financial Accounting & Reporting": [
+        { question: "What is financial accounting?", answer: "Financial accounting involves recording, summarizing, and reporting financial transactions of a business in compliance with regulations." },
+        { question: "What are the key financial statements?", answer: "The key financial statements are the Balance Sheet, Income Statement, and Cash Flow Statement." },
+        { question: "What is the difference between accrual and cash accounting?", answer: "Accrual accounting records revenues and expenses when they are incurred, while cash accounting records them when cash is exchanged." },
+        { question: "What is GAAP?", answer: "GAAP (Generally Accepted Accounting Principles) is a set of accounting standards used for financial reporting in many countries." },
+        { question: "What is the role of an auditor in financial reporting?", answer: "Auditors review financial statements to ensure accuracy, compliance, and transparency in financial reporting." }
+    ],
+    "Investment Banking and Portfolio Management": [
+        { question: "What is investment banking?", answer: "Investment banking provides financial advisory services, facilitates mergers and acquisitions, and helps companies raise capital." },
+        { question: "What are the main functions of investment banks?", answer: "Functions include underwriting, mergers & acquisitions advisory, trading, and asset management." },
+        { question: "What is portfolio management?", answer: "Portfolio management involves selecting and managing investments to achieve financial goals while minimizing risk." },
+        { question: "What is risk diversification?", answer: "Risk diversification involves spreading investments across different assets to reduce exposure to market volatility." },
+        { question: "What are the differences between mutual funds and hedge funds?", answer: "Mutual funds are regulated investment vehicles accessible to the general public, while hedge funds are privately managed and often require high minimum investments." }
+    ],
+    "Performance Management and Employee Appraisals": [
+        { question: "What is performance management?", answer: "Performance management is the continuous process of monitoring, evaluating, and improving employee performance to align with organizational goals." },
+        { question: "What are the key elements of an effective performance appraisal system?", answer: "Elements include clear objectives, regular feedback, employee involvement, and fair evaluation metrics." },
+        { question: "What is the 360-degree feedback system?", answer: "A 360-degree feedback system collects performance feedback from supervisors, peers, subordinates, and customers." },
+        { question: "What is the difference between performance appraisal and performance management?", answer: "Performance appraisal is an annual evaluation, while performance management is an ongoing process of performance monitoring and improvement." },
+        { question: "What is the Balanced Scorecard method?", answer: "The Balanced Scorecard is a strategic performance measurement tool that considers financial and non-financial performance indicators." }
+    ],
+    "Talent Acquisition, Recruitment, and Onboarding": [
+        { question: "What is talent acquisition?", answer: "Talent acquisition is a strategic approach to attracting, hiring, and retaining skilled employees to meet business needs." },
+        { question: "What is the difference between recruitment and talent acquisition?", answer: "Recruitment is the short-term process of filling vacancies, whereas talent acquisition is a long-term strategy for workforce planning and development." },
+        { question: "What are the key steps in the recruitment process?", answer: "Steps include job analysis, sourcing candidates, screening, interviewing, selection, and onboarding." },
+        { question: "What is the purpose of an onboarding process?", answer: "Onboarding helps new employees integrate into the organization by providing training, resources, and cultural orientation." },
+        { question: "What are some common recruitment challenges?", answer: "Challenges include talent shortages, high competition, long hiring processes, and retaining top candidates." }
     ]
 };
 
@@ -682,18 +689,20 @@ function displayDetailedCourse(course){
 
     document.getElementById("detailed-course-container").appendChild(extraContainer)
     document.getElementById("detailed-course-container").appendChild(testButton)
-
-
     showSection("detailed-course-container", document.getElementById("cources"));
 
-    testButton.addEventListener("click", function(){
-        showSection("exercise-content", document.getElementById("exercise"));
+    testButton.addEventListener("click", function(courses){
+        if (!localStorage.getItem("userEmail")) {
+            alert("Please Login To Take Test...")
+        }else{
+            showSection("exercise-content", document.getElementById("exercise"));
+            displayQuestion(course)
+            document.getElementById("exercise-dropdown").value = course
+        }
+
+        
     })
 }
-
-
-
-
 
 
 const sections = {
@@ -746,67 +755,361 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 // Exercise Section
-
 const exerciseQuestions = {
-    "Software Development": [
+    "HTML CSS and JavaScript": [
         {
-            question: "What does HTML stand for?",
-            options: ["Hyper Transfer Markup Language", "HyperText Markup Language", "HighText Machine Learning"],
-            answer: "HyperText Markup Language"
+            question: "Which tag is used to define a hyperlink in HTML?",
+            options: [
+                "<link>",
+                "<a>",
+                "<href>"
+            ],
+            answer: "<a>"
         },
         {
-            question: "Which programming language is used for web development?",
-            options: ["Python", "Java", "JavaScript"],
-            answer: "JavaScript"
+            question: "Which CSS property is used to change the text color of an element?",
+            options: [
+                "color",
+                "background-color",
+                "font-color"
+            ],
+            answer: "color"
+        },
+        {
+            question: "Which keyword is used to declare a variable in JavaScript?",
+            options: [
+                "var",
+                "define",
+                "dim"
+            ],
+            answer: "var"
         }
     ],
-    "Marketing": [
+    "React and Angular": [
         {
-            question: "What is the 4P’s of marketing?",
-            options: ["Product, Price, Place, Promotion", "Plan, Process, Product, Price", "Profit, People, Process, Promotion"],
-            answer: "Product, Price, Place, Promotion"
+            question: "Which command is used to create a new React application?",
+            options: [
+                "npx create-react-app my-app",
+                "npm create-react-app my-app",
+                "node create-react-app my-app"
+            ],
+            answer: "npx create-react-app my-app"
+        },
+        {
+            question: "Which language is primarily used in Angular for development?",
+            options: [
+                "JavaScript",
+                "Python",
+                "TypeScript"
+            ],
+            answer: "TypeScript"
         }
     ],
-    "Finance": [
+    "Node.js and Express.js": [
         {
-            question: "What is ROI?",
-            options: ["Return On Investment", "Rate Of Interest", "Risk Of Inflation"],
-            answer: "Return On Investment"
+            question: "Which module is used to create a server in Node.js?",
+            options: [
+                "http",
+                "fs",
+                "express"
+            ],
+            answer: "http"
+        },
+        {
+            question: "Which method is used to handle POST requests in Express.js?",
+            options: [
+                "app.post()",
+                "app.get()",
+                "app.send()"
+            ],
+            answer: "app.post()"
         }
     ],
-    "Human Resources": [
+    "Java": [
         {
-            question: "What is the primary role of HR?",
-            options: ["Hiring & Managing Employees", "Finance & Accounting", "Marketing & Branding"],
-            answer: "Hiring & Managing Employees"
+            question: "Which keyword is used to define a class in Java?",
+            options: [
+                "class",
+                "Class",
+                "define"
+            ],
+            answer: "class"
+        },
+        {
+            question: "Which method is the entry point of a Java program?",
+            options: [
+                "main()",
+                "start()",
+                "run()"
+            ],
+            answer: "main()"
+        },
+        {
+            question: "Which data type is used to store a single character in Java?",
+            options: [
+                "char",
+                "string",
+                "Character"
+            ],
+            answer: "char"
         }
     ],
-    "Data Science & AI": [
+    "Python": [
         {
-            question: "Which algorithm is commonly used for supervised learning?",
-            options: ["K-Means Clustering", "Linear Regression", "Apriori Algorithm"],
-            answer: "Linear Regression"
+            question: "Which symbol is used for single-line comments in Python?",
+            options: [
+                "//",
+                "#",
+                "/* */"
+            ],
+            answer: "#"
+        },
+        {
+            question: "Which function is used to display output in Python?",
+            options: [
+                "echo()",
+                "print()",
+                "display()"
+            ],
+            answer: "print()"
+        },
+        {
+            question: "Which keyword is used to define a function in Python?",
+            options: [
+                "function",
+                "def",
+                "func"
+            ],
+            answer: "def"
         }
     ],
-    "Cybersecurity": [
+    "SQL": [
         {
-            question: "What is the primary goal of cybersecurity?",
-            options: ["Data Privacy & Protection", "Application Development", "SEO Optimization"],
-            answer: "Data Privacy & Protection"
+            question: "Which SQL command is used to retrieve data from a database?",
+            options: [
+                "FETCH",
+                "SELECT",
+                "GET"
+            ],
+            answer: "SELECT"
+        },
+        {
+            question: "Which SQL clause is used to filter results?",
+            options: [
+                "WHERE",
+                "FILTER",
+                "ORDER BY"
+            ],
+            answer: "WHERE"
+        },
+        {
+            question: "Which SQL command is used to remove all records from a table but keep the structure?",
+            options: [
+                "DELETE",
+                "DROP",
+                "TRUNCATE"
+            ],
+            answer: "TRUNCATE"
+        }
+    ],"Marketing Management & Strategy": [
+        {
+            question: "What is the primary goal of marketing management?",
+            options: [
+                "Increase production",
+                "Attract and retain customers",
+                "Reduce operational costs"
+            ],
+            answer: "Attract and retain customers"
+        },
+        {
+            question: "Which of the following is NOT part of the 4 Ps of marketing?",
+            options: [
+                "Product",
+                "Profit",
+                "Promotion"
+            ],
+            answer: "Profit"
+        },
+        {
+            question: "Which strategy focuses on selling existing products to a new market?",
+            options: [
+                "Market penetration",
+                "Market development",
+                "Diversification"
+            ],
+            answer: "Market development"
+        }
+    ],
+    "Consumer Behavior & Market Research": [
+        {
+            question: "Which factor is NOT considered in consumer behavior analysis?",
+            options: [
+                "Psychological factors",
+                "Government policies",
+                "Social influences"
+            ],
+            answer: "Government policies"
+        },
+        {
+            question: "Which type of market research involves collecting new data directly from sources?",
+            options: [
+                "Primary research",
+                "Secondary research",
+                "Experimental research"
+            ],
+            answer: "Primary research"
+        },
+        {
+            question: "Which of the following methods is commonly used to study consumer behavior?",
+            options: [
+                "Surveys",
+                "Accounting records",
+                "Production schedules"
+            ],
+            answer: "Surveys"
+        }
+    ],
+    "Financial Accounting & Reporting": [
+        {
+            question: "Which financial statement provides a snapshot of a company's financial position at a specific time?",
+            options: [
+                "Income Statement",
+                "Balance Sheet",
+                "Cash Flow Statement"
+            ],
+            answer: "Balance Sheet"
+        },
+        {
+            question: "What does GAAP stand for?",
+            options: [
+                "General Accounting and Audit Principles",
+                "Generally Accepted Accounting Principles",
+                "Global Accounting and Assessment Policy"
+            ],
+            answer: "Generally Accepted Accounting Principles"
+        },
+        {
+            question: "Which accounting method recognizes revenue when it is earned, not when cash is received?",
+            options: [
+                "Accrual accounting",
+                "Cash accounting",
+                "Hybrid accounting"
+            ],
+            answer: "Accrual accounting"
+        }
+    ],
+    "Investment Banking and Portfolio Management": [
+        {
+            question: "Which of the following is a primary function of investment banks?",
+            options: [
+                "Manufacturing goods",
+                "Underwriting securities",
+                "Managing supply chains"
+            ],
+            answer: "Underwriting securities"
+        },
+        {
+            question: "What is portfolio diversification?",
+            options: [
+                "Investing in a single asset",
+                "Spreading investments across multiple assets",
+                "Avoiding all investments"
+            ],
+            answer: "Spreading investments across multiple assets"
+        },
+        {
+            question: "Which financial instrument represents ownership in a company?",
+            options: [
+                "Bond",
+                "Stock",
+                "Derivative"
+            ],
+            answer: "Stock"
+        }
+    ],
+    "Performance Management and Employee Appraisals": [
+        {
+            question: "Which of the following is a key purpose of performance appraisals?",
+            options: [
+                "To determine financial statements",
+                "To evaluate employee performance",
+                "To track inventory levels"
+            ],
+            answer: "To evaluate employee performance"
+        },
+        {
+            question: "What is 360-degree feedback?",
+            options: [
+                "Feedback collected only from top management",
+                "Feedback from multiple sources including peers, subordinates, and managers",
+                "Feedback based solely on sales performance"
+            ],
+            answer: "Feedback from multiple sources including peers, subordinates, and managers"
+        },
+        {
+            question: "Which of the following is a performance measurement tool?",
+            options: [
+                "Balanced Scorecard",
+                "Trial Balance",
+                "Income Statement"
+            ],
+            answer: "Balanced Scorecard"
+        }
+    ],
+    "Talent Acquisition, Recruitment, and Onboarding": [
+        {
+            question: "What is the main objective of talent acquisition?",
+            options: [
+                "To find and retain top talent",
+                "To reduce company expenses",
+                "To automate recruitment entirely"
+            ],
+            answer: "To find and retain top talent"
+        },
+        {
+            question: "Which step comes first in the recruitment process?",
+            options: [
+                "Job analysis",
+                "Employee training",
+                "Performance appraisal"
+            ],
+            answer: "Job analysis"
+        },
+        {
+            question: "What is the main goal of an onboarding program?",
+            options: [
+                "To provide training and integrate new employees",
+                "To terminate underperforming employees",
+                "To assess financial statements"
+            ],
+            answer: "To provide training and integrate new employees"
         }
     ]
 };
 
 let exerciseContainer = document.getElementById("exercise-questions");
 
-document.getElementById("start-exercise").addEventListener("click", function () {
+document.getElementById("exercise").addEventListener("click", function () {
+    if (!localStorage.getItem("userEmail")) {
+        alert("You need to log in to access the Exercise section.");
+        return;
+    }
+    showSection("exercise-content", this);
+});
+
+// Finding Slected Course
+document.getElementById("start-exercise").addEventListener("click", function(){
     let selectedCourse = document.getElementById("exercise-dropdown").value;
-    
+    console.log(selectedCourse)
     if (!selectedCourse) {
         alert("Please select a course to start the test!");
         return;
     }
+    displayQuestion(selectedCourse)
+})
 
+// display question
+function displayQuestion(selectedCourse){
     let questionsContainer = document.getElementById("questions-container");
     questionsContainer.innerHTML = ""; 
     document.getElementById("exercise-title").textContent = `Test: ${selectedCourse}`;
@@ -838,8 +1141,9 @@ document.getElementById("start-exercise").addEventListener("click", function () 
 
         questionsContainer.appendChild(questionDiv);
     });
-});
+}
 
+// on submit test
 document.getElementById("submit-exercise").addEventListener("click", function () {
     let selectedCourse = document.getElementById("exercise-dropdown").value;
     let questions = exerciseQuestions[selectedCourse];
