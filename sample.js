@@ -31,6 +31,7 @@ function showSection(section, activeElement) {
     let courseDetailsContent = document.getElementById("course-details-content");
     let exerciseContent = document.getElementById("exercise-content")
     let interviewQuestionsContainer = document.getElementById("detailed-course-container");
+    let companyInterviewQestions = document.getElementById("interview-content")
 
     homeContent.style.display = "none";
     aboutContent.style.display = "none";
@@ -40,6 +41,7 @@ function showSection(section, activeElement) {
     exerciseContent.style.display= "none"
     jobsContent.style.display = "none"
     interviewQuestionsContainer.style.display = "none"
+    companyInterviewQestions.style.display = "none"
 
     SignUpContainer.style.display = "none";
     SignInContainer.style.display = "none";
@@ -101,9 +103,7 @@ SignInBAckBtn.addEventListener('click', function () {
     BackGround.style.display = "block";
 });
 
-document.getElementById("exercise").addEventListener("click", function () {
-    showSection("exercise-content", this);
-});
+
 
 document.getElementById("jobs").addEventListener("click", function () {
     showSection("jobs-content", this);
@@ -138,8 +138,6 @@ function showLoggedInUI() {
     document.getElementById("signIn/signUp-button").style.display = "none";
     document.getElementById("logout-button").style.display = "block";
     document.getElementById("welcome-user").innerHTML = `Welcome, ${localStorage.getItem("name")}`;
-
-    document.getElementById("exercise").style.display = "block";
 }
 
 // Show UI for non-logged-in user
@@ -695,7 +693,7 @@ function displayDetailedCourse(course){
         if (!localStorage.getItem("userEmail")) {
             alert("Please Login To Take Test...")
         }else{
-            showSection("exercise-content", document.getElementById("exercise"));
+            showSection("exercise-content", document.getElementById("cources"));
             displayQuestion(course)
             document.getElementById("exercise-dropdown").value = course
         }
@@ -703,7 +701,6 @@ function displayDetailedCourse(course){
         
     })
 }
-
 
 const sections = {
     home: "body-container",
@@ -752,7 +749,6 @@ document.addEventListener("DOMContentLoaded", function () {
     handleMobileNavClick();
     handleCourseCardClick();
 });
-
 
 // Exercise Section
 const exerciseQuestions = {
@@ -1089,13 +1085,6 @@ const exerciseQuestions = {
 
 let exerciseContainer = document.getElementById("exercise-questions");
 
-document.getElementById("exercise").addEventListener("click", function () {
-    if (!localStorage.getItem("userEmail")) {
-        alert("You need to log in to access the Exercise section.");
-        return;
-    }
-    showSection("exercise-content", this);
-});
 
 // Finding Slected Course
 document.getElementById("start-exercise").addEventListener("click", function(){
@@ -1162,7 +1151,6 @@ document.getElementById("submit-exercise").addEventListener("click", function ()
     document.getElementById("exercise-dropdown").value = ""
 });
 
-
 //Jobs Section
 
 const jobs = [
@@ -1214,3 +1202,78 @@ function displayJobs() {
         jobsContainer.appendChild(jobCard);
     });
 }
+
+// Interview Questions
+
+document.getElementById("interview").addEventListener("click", function () {
+    showSection("interview-content",document.getElementById("interview"))
+});
+
+const companyInteviewQuestions = {
+    "Accenture": [
+        { question: "What is polymorphism?", answer: "Polymorphism allows a single function, method, or operator to behave differently based on input, supporting method overloading and overriding." },
+        { question: "Explain Agile methodology.", answer: "Agile is a software development approach focusing on iterative progress, collaboration, and adaptability, using frameworks like Scrum and Kanban." },
+        { question: "What are design patterns in software development?", answer: "Design patterns are reusable solutions to common software design problems, such as Singleton, Factory, and Observer patterns." },
+        { question: "Differentiate between an interface and an abstract class.", answer: "An interface defines a contract for classes to implement, while an abstract class provides a mix of implemented and unimplemented methods." },
+        { question: "What is the difference between REST and SOAP?", answer: "REST is a lightweight architectural style using JSON/XML over HTTP, while SOAP is a protocol using XML messages with strict standards." },
+        { question: "What is the purpose of microservices architecture?", answer: "Microservices break applications into small, independent services that communicate via APIs, improving scalability and maintainability." },
+        { question: "What are SQL Joins, and what are their types?", answer: "SQL Joins combine data from multiple tables using INNER JOIN, LEFT JOIN, RIGHT JOIN, and FULL JOIN." }
+    ],
+    "TCS": [
+        { question: "What is the difference between C and C++?", answer: "C is procedural, while C++ supports both procedural and object-oriented programming." },
+        { question: "Explain normalization in databases.", answer: "Normalization reduces redundancy and improves data consistency through Normal Forms (1NF, 2NF, 3NF, etc.)." },
+        { question: "What is a deadlock in operating systems?", answer: "A deadlock occurs when processes wait for resources held by each other, preventing further execution." },
+        { question: "Explain the difference between primary key and foreign key.", answer: "A primary key uniquely identifies a record, while a foreign key establishes relationships between tables." },
+        { question: "What is a linked list, and how is it different from an array?", answer: "A linked list is a dynamic structure where elements are connected via pointers, unlike arrays, which use contiguous memory." },
+        { question: "What is SDLC, and what are its phases?", answer: "SDLC (Software Development Life Cycle) consists of phases like Requirement Analysis, Design, Development, Testing, Deployment, and Maintenance." },
+        { question: "What is the difference between HTTP and HTTPS?", answer: "HTTPS encrypts data using SSL/TLS, making it secure, while HTTP does not encrypt data." }
+    ],
+    "Wipro": [
+        { question: "What is encapsulation in OOP?", answer: "Encapsulation bundles data and methods within a class, restricting direct access and enforcing data hiding." },
+        { question: "Describe cloud computing.", answer: "Cloud computing delivers computing services like storage, databases, and networking over the internet, enabling scalability." },
+        { question: "What is the difference between stack and queue?", answer: "A stack follows LIFO (Last In, First Out), whereas a queue follows FIFO (First In, First Out)." },
+        { question: "What is the difference between GET and POST methods in HTTP?", answer: "GET retrieves data, while POST sends data to the server for processing." },
+        { question: "What is an API, and why is it used?", answer: "An API (Application Programming Interface) enables communication between different software applications." },
+        { question: "Explain the difference between a process and a thread.", answer: "A process is an independent execution unit, while a thread is a lightweight subunit of a process that shares resources." },
+        { question: "What is exception handling in Java?", answer: "Exception handling manages runtime errors using try, catch, finally, and throw keywords." }
+    ],
+    "HCL": [
+        { question: "What are design patterns, and why are they useful?", answer: "Design patterns provide reusable solutions to common software problems, improving maintainability and scalability." },
+        { question: "Differentiate between REST and SOAP.", answer: "REST is a stateless architecture using JSON/XML, whereas SOAP is a strict protocol using XML messaging." },
+        { question: "What is multithreading, and how does it work?", answer: "Multithreading enables concurrent execution of multiple tasks, improving performance in CPU-intensive applications." },
+        { question: "What is Big-O notation, and why is it important?", answer: "Big-O notation describes an algorithm’s efficiency in terms of time and space complexity." },
+        { question: "What is the difference between compilation and interpretation?", answer: "A compiler translates the entire code before execution, while an interpreter translates and executes line by line." },
+        { question: "Explain the difference between heap and stack memory.", answer: "Stack memory stores method calls and local variables, whereas heap memory is used for dynamic object allocation." },
+        { question: "What is a singleton class in Java?", answer: "A singleton class allows only one instance of an object to exist in memory." }
+    ],
+    "Tech Mahindra": [
+        { question: "Explain multithreading in Java.", answer: "Multithreading allows concurrent execution of multiple threads, improving CPU efficiency." },
+        { question: "What is a linked list, and how is it implemented?", answer: "A linked list is a dynamic data structure where elements (nodes) are linked using pointers." },
+        { question: "What is a hash table, and how does it work?", answer: "A hash table stores key-value pairs using a hash function, enabling fast lookups." },
+        { question: "What is the difference between JDK, JRE, and JVM?", answer: "JDK contains development tools, JRE provides runtime environment, and JVM executes Java programs." },
+        { question: "What are access modifiers in Java?", answer: "Access modifiers (public, private, protected, default) control the visibility of class members." },
+        { question: "Explain method overloading and method overriding.", answer: "Method overloading allows methods with the same name but different parameters, while overriding allows a subclass to modify a superclass method." },
+        { question: "What is garbage collection in Java?", answer: "Garbage collection automatically frees memory by removing unused objects to prevent memory leaks." }
+    ]
+};
+
+
+document.getElementById("company-dropdown").addEventListener("change", function () {
+    let company = this.value;
+    let questionsList = document.getElementById("questions-list");
+    questionsList.innerHTML = "";
+
+    if (company && companyInteviewQuestions[company]) {
+        companyInteviewQuestions[company].forEach(q => {
+            let questionDiv = document.createElement("div");
+            questionDiv.classList.add("exercise-questions")
+            questionDiv.classList.add("question-item");
+            questionDiv.innerHTML = `
+            <p><strong>Q:</strong> ${q.question}</p>
+            <p><strong>A:</strong> ${q.answer}</p>
+            `
+            questionsList.appendChild(questionDiv);
+        });
+    }
+});
+
